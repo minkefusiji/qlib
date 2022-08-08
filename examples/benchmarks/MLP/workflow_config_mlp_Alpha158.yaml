@@ -41,8 +41,9 @@ port_analysis_config: &port_analysis_config
         class: TopkDropoutStrategy
         module_path: qlib.contrib.strategy
         kwargs:
-            model: <MODEL>
-            dataset: <DATASET>
+            signal:
+                - <MODEL> 
+                - <DATASET>
             topk: 50
             n_drop: 5
     backtest:
@@ -62,8 +63,6 @@ task:
         module_path: qlib.contrib.model.pytorch_nn
         kwargs:
             loss: mse
-            input_dim: 157
-            output_dim: 1
             lr: 0.002
             lr_decay: 0.96
             lr_decay_steps: 100
@@ -72,6 +71,8 @@ task:
             batch_size: 8192
             GPU: 0
             weight_decay: 0.0002
+            pt_model_kwargs:
+              input_dim: 157
     dataset:
         class: DatasetH
         module_path: qlib.data.dataset
